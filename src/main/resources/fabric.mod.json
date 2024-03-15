@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "tameable_axolotls",
+	"version": "${version}",
+	"name": "Tameable Axolotls",
+	"description": "Tameable Axolotls implementation, original Proof of Concept code by Bawnorton",
+	"authors": [
+		"Survivalblock"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT-0",
+	"icon": "assets/tameable/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"survivalblock.tameable_axolotls.TameableAxolotls"
+		],
+		"client": [
+			"survivalblock.tameable_axolotls.TameableAxolotlsClient"
+		]
+	},
+	"languageAdapters": {
+		"tameable": "survivalblock.tameable_axolotls.TameableAxolotlsAgent"
+	},
+	"mixins": [
+		"tameable_axolotls.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": ">=1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"respawnable-pets": "*"
+	}
+}
