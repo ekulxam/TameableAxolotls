@@ -21,15 +21,8 @@ public class TameableAgent implements LanguageAdapter {
     static {
         ByteBuddyAgent.install();
 
-        String axolotlEntityClassName;
-        String tameableEntityClassName;
-        if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-            axolotlEntityClassName = "net/minecraft/entity/passive/AxolotlEntity";
-            tameableEntityClassName = "net/minecraft/entity/passive/TameableEntity";
-        } else {
-            axolotlEntityClassName = "net/minecraft/class_5762";
-            tameableEntityClassName = "net/minecraft/class_1321";
-        }
+        String axolotlEntityClassName = MappingUtil.intermediaryToMappedClassName("net.minecraft.class_5762").replace('.', '/');
+        String tameableEntityClassName = MappingUtil.intermediaryToMappedClassName("net.minecraft.class_1321").replace('.', '/');
 
         ByteBuddyAgent.getInstrumentation().addTransformer(new ClassFileTransformer() {
             @Override

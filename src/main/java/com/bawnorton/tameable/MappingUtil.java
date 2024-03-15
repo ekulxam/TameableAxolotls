@@ -10,6 +10,10 @@ public class MappingUtil {
         return resolver.mapMethodName("intermediary", intermediaryClassName, intermediaryMethodName, desc);
     }
 
+    public static String intermediaryToMappedClassName(String intermediaryClassName) {
+        return resolver.mapClassName("intermediary", intermediaryClassName);
+    }
+
     public static String definitionToIntermediaryClassName(Class<?> clazz) {
         return resolver.unmapClassName("intermediary", clazz.getName());
     }
@@ -17,4 +21,5 @@ public class MappingUtil {
     public static String definitionToIntermediaryBytecodeName(Class<?> clazz) {
         return "L" + definitionToIntermediaryClassName(clazz).replace('.', '/') + ";";
     }
+
 }
