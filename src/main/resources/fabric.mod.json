@@ -35,6 +35,7 @@
 		"java": ">=17",
 		"fabric-api": "*"
 	},
+	"accessWidener": "tameable_axolotls.accesswidener",
 	"suggests": {
 		"respawnable-pets": "*"
 	}

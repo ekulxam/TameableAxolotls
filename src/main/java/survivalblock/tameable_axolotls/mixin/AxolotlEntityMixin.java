@@ -2,12 +2,17 @@ package survivalblock.tameable_axolotls.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.entity.ai.goal.AttackWithOwnerGoal;
-import net.minecraft.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.entity.ai.goal.TrackOwnerAttackerGoal;
 import net.minecraft.entity.ai.pathing.AmphibiousSwimNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Debug;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import survivalblock.tameable_axolotls.MappingUtil;
 import survivalblock.tameable_axolotls.ReflectionUtil;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -28,6 +33,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import survivalblock.tameable_axolotls.pathfinder.AmphibiousFollowOwnerGoal;
 import survivalblock.tameable_axolotls.pathfinder.AmphibiousSwimNavigationWrapper;
 
 @Debug(export = true)
@@ -117,7 +123,7 @@ public abstract class AxolotlEntityMixin extends AnimalEntity {
     @Override
     @SuppressWarnings({"cast", "DataFlowIssue"})
     protected void initGoals() {
-        this.goalSelector.add(1, new FollowOwnerGoal(((TameableEntity)(Object) this), 1.0, 10.0f, 2.0f, false));
+        this.goalSelector.add(1, new AmphibiousFollowOwnerGoal(((TameableEntity)(Object) this), 0.75, 10.0f, 2.0f, false));
         this.targetSelector.add(1, new TrackOwnerAttackerGoal((TameableEntity)(Object) this));
         this.targetSelector.add(2, new AttackWithOwnerGoal((TameableEntity)(Object) this));
     }
@@ -127,4 +133,32 @@ public abstract class AxolotlEntityMixin extends AnimalEntity {
         return new AmphibiousSwimNavigationWrapper((AmphibiousSwimNavigation) original);
     }
 
+    @Inject(method = "createChild", at = @At("TAIL"))
+    private void addOwnerTagToChild(ServerWorld world, PassiveEntity entity, CallbackInfoReturnable<PassiveEntity> cir) {
+        PassiveEntity child = cir.getReturnValue();
+        if(entity instanceof AxolotlEntity axolotl && !axolotl.getWorld().isClient() && child instanceof AxolotlEntity axolotlChild){
+            if(((Object) axolotl) instanceof TameableEntity tameable && tameable.isTamed() && tameable.getOwner() != null){
+                if(((Object) axolotlChild) instanceof TameableEntity tameable1){
+                    tameable1.setOwnerUuid(tameable.getOwnerUuid());
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Inject(method = "copyDataToStack", at = @At(value = "TAIL"))
+    public void addOwnerToBucketNbt(ItemStack stack, CallbackInfo ci) {
+        if(((TameableEntity) (Object) this).getOwnerUuid() != null) stack.getOrCreateNbt().putUuid("Owner", ((TameableEntity) (Object) this).getOwnerUuid());
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Inject(method = "copyDataFromNbt", at = @At(value = "TAIL"))
+    public void addOwnerToBucketDeploy(NbtCompound nbt, CallbackInfo ci) {
+        if(nbt.containsUuid("Owner")) {
+            ((TameableEntity) (Object) this).setOwnerUuid(nbt.getUuid("Owner"));
+            ((TameableEntity) (Object) this).setTamed(true);
+        } else {
+            ((TameableEntity) (Object) this).setTamed(false);
+        }
+    }
 }

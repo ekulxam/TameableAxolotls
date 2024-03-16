@@ -11,9 +11,6 @@ public interface AmphibiousSwimNavigationAccessor {
     @Invoker("canPathDirectlyThrough")
     boolean tameableAxolotls$canPathDirectlyThrough(Vec3d origin, Vec3d target);
 
-    @Invoker("createPathNodeNavigator")
-    PathNodeNavigator tameableAxolotls$createPathNodeNavigator(int range);
-
     @Invoker("isAtValidPosition")
     boolean tameableAxolotls$isAtValidPosition();
 

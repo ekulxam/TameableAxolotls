@@ -20,7 +20,9 @@ public class AmphibiousSwimNavigationWrapper extends MobNavigation {
 
     @Override
     protected PathNodeNavigator createPathNodeNavigator(int range) {
-        return ((AmphibiousSwimNavigationAccessor) delegate).tameableAxolotls$createPathNodeNavigator(range);
+        this.nodeMaker = new AmphibiousPathNodeMaker(false);
+        this.nodeMaker.setCanEnterOpenDoors(true);
+        return new PathNodeNavigator(this.nodeMaker, range);
     }
 
     @Override
