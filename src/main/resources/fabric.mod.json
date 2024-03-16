@@ -5,6 +5,7 @@
 	"name": "Tameable Axolotls",
 	"description": "Tameable Axolotls implementation, original Proof of Concept code by Bawnorton",
 	"authors": [
+		"Bawnorton",
 		"Survivalblock"
 	],
 	"contact": {

@@ -1,8 +1,11 @@
 package survivalblock.tameable_axolotls.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.entity.ai.goal.AttackWithOwnerGoal;
 import net.minecraft.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.entity.ai.goal.TrackOwnerAttackerGoal;
+import net.minecraft.entity.ai.pathing.AmphibiousSwimNavigation;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.passive.TameableEntity;
 import org.spongepowered.asm.mixin.Debug;
 import survivalblock.tameable_axolotls.MappingUtil;
@@ -25,6 +28,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import survivalblock.tameable_axolotls.pathfinder.AmphibiousSwimNavigationWrapper;
 
 @Debug(export = true)
 @Mixin(value = AxolotlEntity.class, priority = 1500)
@@ -113,8 +117,14 @@ public abstract class AxolotlEntityMixin extends AnimalEntity {
     @Override
     @SuppressWarnings({"cast", "DataFlowIssue"})
     protected void initGoals() {
-        this.goalSelector.add(6, new FollowOwnerGoal(((TameableEntity)(Object) this), 1.0, 10.0f, 2.0f, false));
+        this.goalSelector.add(1, new FollowOwnerGoal(((TameableEntity)(Object) this), 1.0, 10.0f, 2.0f, false));
         this.targetSelector.add(1, new TrackOwnerAttackerGoal((TameableEntity)(Object) this));
         this.targetSelector.add(2, new AttackWithOwnerGoal((TameableEntity)(Object) this));
     }
+
+    @ModifyReturnValue(method = "createNavigation", at = @At("RETURN"))
+    private EntityNavigation wrapNavigation(EntityNavigation original) {
+        return new AmphibiousSwimNavigationWrapper((AmphibiousSwimNavigation) original);
+    }
+
 }
