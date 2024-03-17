@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Debug(export = true)
 @Mixin(value = AxolotlAttackablesSensor.class, priority = 1500)
 public class AxolotlAttackablesSensorMixin {
 
