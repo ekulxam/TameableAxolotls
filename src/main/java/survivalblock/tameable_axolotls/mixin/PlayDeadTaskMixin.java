@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 @Debug(export = true)
@@ -28,6 +28,13 @@ public abstract class PlayDeadTaskMixin extends MultiTickTask<AxolotlEntity> {
 
     @Inject(method="run(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/passive/AxolotlEntity;J)V", at = @At("TAIL"))
     private void addStrength(ServerWorld serverWorld, AxolotlEntity axolotlEntity, long l, CallbackInfo ci){
+        List<StatusEffectInstance> axolotlStatusEffectList = new java.util.ArrayList<>(List.copyOf(axolotlEntity.getStatusEffects()));
+        for(StatusEffectInstance thisStatusEffectInstance : axolotlStatusEffectList){
+            if(thisStatusEffectInstance.getEffectType().getCategory().equals(StatusEffectCategory.HARMFUL)){
+                axolotlStatusEffectList.remove(thisStatusEffectInstance);
+                axolotlEntity.removeStatusEffect(thisStatusEffectInstance.getEffectType());
+            }
+        }
         axolotlEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 400, 1));
         axolotlEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 1200, 0, true, false));
         axolotlEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 1200, 2, true, false));
