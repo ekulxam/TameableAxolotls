@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.*;
 
-@Debug(export = true)
+
 @Mixin(value = PlayDeadTask.class, priority = 1500)
 public abstract class PlayDeadTaskMixin extends MultiTickTask<AxolotlEntity> {
 
