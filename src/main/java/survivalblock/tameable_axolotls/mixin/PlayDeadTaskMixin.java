@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@Debug(export = true)
+
 @Mixin(value = PlayDeadTask.class, priority = 1500)
 public abstract class PlayDeadTaskMixin extends MultiTickTask<AxolotlEntity> {
 
