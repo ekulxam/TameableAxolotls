@@ -10,7 +10,8 @@
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/ekulxam/TameableAxolotls",
+		"issues": "https://github.com/ekulxam/TameableAxolotls/issues"
 	},
 	"license": "MIT-0",
 	"icon": "assets/tameable_axolotls/icon.png",
