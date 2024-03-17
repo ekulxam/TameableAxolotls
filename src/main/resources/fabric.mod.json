@@ -13,7 +13,7 @@
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "MIT-0",
-	"icon": "assets/tameable/icon.png",
+	"icon": "assets/tameable_axolotls/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
@@ -24,14 +24,14 @@
 		]
 	},
 	"languageAdapters": {
-		"tameable": "survivalblock.tameable_axolotls.TameableAxolotlsAgent"
+		"tameable_axolotls": "survivalblock.tameable_axolotls.TameableAxolotlsAgent"
 	},
 	"mixins": [
 		"tameable_axolotls.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.0",
-		"minecraft": ">=1.20.1",
+		"minecraft": "1.20.4",
 		"java": ">=17",
 		"fabric-api": "*"
 	},

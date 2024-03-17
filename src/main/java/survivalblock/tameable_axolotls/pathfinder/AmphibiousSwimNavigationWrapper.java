@@ -10,7 +10,6 @@ import survivalblock.tameable_axolotls.mixin.EntityNavigationAccessor;
 
 public class AmphibiousSwimNavigationWrapper extends MobNavigation {
 
-
     public AmphibiousSwimNavigationWrapper(AmphibiousSwimNavigation delegate) {
         super(((EntityNavigationAccessor) delegate).getEntity(), ((EntityNavigationAccessor) delegate).getWorld());
         this.delegate = delegate;

@@ -25,13 +25,13 @@ loom {
     splitEnvironmentSourceSets()
 
 	mods {
-		"tameable" {
+		"tameable_axolotls" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 			dependency(externalDeps.toArray(new ExternalModuleDependency[]{}))
 		}
 	}
-
+	accessWidenerPath = file("src/main/resources/tameable_axolotls.accesswidener")
 }
 
 dependencies {

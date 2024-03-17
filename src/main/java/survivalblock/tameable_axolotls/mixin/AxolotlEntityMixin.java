@@ -123,7 +123,7 @@ public abstract class AxolotlEntityMixin extends AnimalEntity {
     @Override
     @SuppressWarnings({"cast", "DataFlowIssue"})
     protected void initGoals() {
-        this.goalSelector.add(1, new AmphibiousFollowOwnerGoal(((TameableEntity)(Object) this), 0.75, 10.0f, 2.0f, false));
+        this.goalSelector.add(1, new AmphibiousFollowOwnerGoal(((TameableEntity)(Object) this), 0.75, 15.0f, 2.5f, false));
         this.targetSelector.add(1, new TrackOwnerAttackerGoal((TameableEntity)(Object) this));
         this.targetSelector.add(2, new AttackWithOwnerGoal((TameableEntity)(Object) this));
     }
