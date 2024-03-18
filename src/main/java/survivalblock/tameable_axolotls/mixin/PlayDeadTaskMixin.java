@@ -31,7 +31,7 @@ public abstract class PlayDeadTaskMixin extends MultiTickTask<AxolotlEntity> {
 
     @Inject(method="run(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/passive/AxolotlEntity;J)V", at = @At("TAIL"))
     private void addStrength(ServerWorld serverWorld, AxolotlEntity axolotlEntity, long l, CallbackInfo ci){
-        List<StatusEffectInstance> axolotlStatusEffectList = new ArrayList<>(List.copyOf(axolotlEntity.getStatusEffects()));
+        List<StatusEffectInstance> axolotlStatusEffectList = new ArrayList<>(axolotlEntity.getStatusEffects());
         for (Iterator<StatusEffectInstance> iterator = axolotlStatusEffectList.iterator(); iterator.hasNext(); ) {
             StatusEffect statusEffectType = iterator.next().getEffectType();
             if(statusEffectType.getCategory().equals(StatusEffectCategory.HARMFUL)){
