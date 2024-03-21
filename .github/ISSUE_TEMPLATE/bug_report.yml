@@ -15,4 +15,4 @@ body:
   - type: input
     attributes:
       label: Log or crash report
-      description: Please use [gist](https://gist.github.com/) or [mc logs](mclo.gs).
+      description: Please use [gist](https://gist.github.com/) or [mclo.gs](https://mclo.gs).
