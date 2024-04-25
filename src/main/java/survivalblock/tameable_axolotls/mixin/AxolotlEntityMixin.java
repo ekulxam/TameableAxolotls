@@ -1,6 +1,7 @@
 package survivalblock.tameable_axolotls.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.ai.goal.AttackWithOwnerGoal;
 import net.minecraft.entity.ai.goal.TrackOwnerAttackerGoal;
 import net.minecraft.entity.ai.pathing.AmphibiousSwimNavigation;
@@ -48,14 +49,13 @@ public abstract class AxolotlEntityMixin extends AnimalEntity {
     @WrapOperation(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/AnimalEntity;interactMob(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"))
     public ActionResult interactMob(AxolotlEntity instance, PlayerEntity player, Hand hand, Operation<ActionResult> original) {
         ItemStack itemStack = player.getStackInHand(hand);
-        Item item = itemStack.getItem();
 
         if (this.getWorld().isClient()) {
-            boolean consume = tameable$isOwner(player) || tameable$isTamed() || (itemStack.isIn(ItemTags.AXOLOTL_TEMPT_ITEMS) && !tameable$isTamed());
+            boolean consume = tameable$isOwner(player) || tameable$isTamed() || (itemStack.isIn(ItemTags.AXOLOTL_FOOD) && !tameable$isTamed());
             return consume ? ActionResult.CONSUME : ActionResult.PASS;
         }
 
-        if (itemStack.isIn(ItemTags.AXOLOTL_TEMPT_ITEMS)) {
+        if (itemStack.isIn(ItemTags.AXOLOTL_FOOD)) {
             eat(player, hand, itemStack);
 
             if (!tameable$isTamed()) {
@@ -69,7 +69,7 @@ public abstract class AxolotlEntityMixin extends AnimalEntity {
                 }
                 return ActionResult.SUCCESS;
             } else if(this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
-                this.heal(item.getFoodComponent().getHunger());
+                this.heal(itemStack.getComponents().get(DataComponentTypes.FOOD).nutrition());
                 return ActionResult.SUCCESS;
             }
 
@@ -146,9 +146,10 @@ public abstract class AxolotlEntityMixin extends AnimalEntity {
     }
 
     @SuppressWarnings("DataFlowIssue")
-    @Inject(method = "copyDataToStack", at = @At(value = "TAIL"))
-    public void addOwnerToBucketNbt(ItemStack stack, CallbackInfo ci) {
-        if(((TameableEntity) (Object) this).getOwnerUuid() != null) stack.getOrCreateNbt().putUuid("Owner", ((TameableEntity) (Object) this).getOwnerUuid());
+    // target lambda for new components
+    @Inject(method = "method_57305", at = @At(value = "TAIL"))
+    public void addOwnerToBucketNbt(NbtCompound nbt, CallbackInfo ci) {
+        if(((TameableEntity) (Object) this).getOwnerUuid() != null) nbt.putUuid("Owner", ((TameableEntity) (Object) this).getOwnerUuid());
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -156,9 +157,9 @@ public abstract class AxolotlEntityMixin extends AnimalEntity {
     public void addOwnerToBucketDeploy(NbtCompound nbt, CallbackInfo ci) {
         if(nbt.containsUuid("Owner")) {
             ((TameableEntity) (Object) this).setOwnerUuid(nbt.getUuid("Owner"));
-            ((TameableEntity) (Object) this).setTamed(true);
+            ((TameableEntity) (Object) this).setTamed(true, true);
         } else {
-            ((TameableEntity) (Object) this).setTamed(false);
+            ((TameableEntity) (Object) this).setTamed(false, true);
         }
     }
 }

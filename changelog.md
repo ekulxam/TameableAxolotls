@@ -1,1 +1,2 @@
-- Removed PlayDeadTaskMixin
+- Updated to 1.20.5
+- The Minecraft tag AXOLOTL_TEMPT_ITEMS has been renamed to AXOLOTL_FOOD

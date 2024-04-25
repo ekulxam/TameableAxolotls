@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version '1.6-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -22,12 +22,9 @@ dependencies {
 }
 
 loom {
-    splitEnvironmentSourceSets()
-
 	mods {
 		"tameable_axolotls" {
 			sourceSet sourceSets.main
-			sourceSet sourceSets.client
 			dependency(externalDeps.toArray(new ExternalModuleDependency[]{}))
 		}
 	}

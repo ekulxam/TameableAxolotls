@@ -16,7 +16,7 @@ public class AmphibiousFollowOwnerGoal extends FollowOwnerGoal {
 
     @Override
     protected boolean canTeleportTo(BlockPos pos) {
-        PathNodeType pathNodeType = LandPathNodeMaker.getLandNodeType(((FollowOwnerGoalAccessor) this).getWorld(), pos.mutableCopy());
+        PathNodeType pathNodeType = LandPathNodeMaker.getLandNodeType(((FollowOwnerGoalAccessor) this).getTameable(), pos.mutableCopy());
         if (pathNodeType != PathNodeType.WATER) {
             return false;
         }
