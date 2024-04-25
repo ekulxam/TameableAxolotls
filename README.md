@@ -13,7 +13,6 @@ Features:
 - Axolotls can be tamed and breeded with tropical fish and buckets of tropical fish
 - Axolotls will follow and teleport with their owners underwater
 - Axolotls will attack their owner's target or their owner's attacker
-- Axolotls will now remove all harmful status effects and gain strength, fire resistance, and absorption (also with the regeneration) upon playing dead
 
 Q&A
 
