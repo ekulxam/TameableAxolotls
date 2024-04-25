@@ -22,12 +22,9 @@ dependencies {
 }
 
 loom {
-    splitEnvironmentSourceSets()
-
 	mods {
 		"tameable_axolotls" {
 			sourceSet sourceSets.main
-			sourceSet sourceSets.client
 			dependency(externalDeps.toArray(new ExternalModuleDependency[]{}))
 		}
 	}
