@@ -1,2 +1,2 @@
-- Updated to 1.20.5
-- The Minecraft tag AXOLOTL_TEMPT_ITEMS has been renamed to AXOLOTL_FOOD
+- Fixed access widener not working in development environment  [1](https://github.com/ekulxam/TameableAxolotls/issues/1)
+- This should only affect other modders using this mod as a dependency
