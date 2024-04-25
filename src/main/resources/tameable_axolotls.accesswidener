@@ -1,2 +1,2 @@
 accessWidener v2 named
-extendable method net/minecraft/entity/ai/goal/FollowOwnerGoal canTeleportTo (Lnet/minecraft/util/math/BlockPos;)Z
+transitive-extendable method net/minecraft/entity/ai/goal/FollowOwnerGoal canTeleportTo (Lnet/minecraft/util/math/BlockPos;)Z
