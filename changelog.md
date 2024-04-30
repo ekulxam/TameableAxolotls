@@ -1,2 +1,2 @@
-- Fixed access widener not working in development environment  [1](https://github.com/ekulxam/TameableAxolotls/issues/1)
-- This should only affect other modders using this mod as a dependency
+- Removed Fabric API
+- Updated the 1.20.1 version to support 1.20.1-1.20.4
