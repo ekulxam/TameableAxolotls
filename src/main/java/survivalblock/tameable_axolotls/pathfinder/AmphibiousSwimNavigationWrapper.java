@@ -1,17 +1,15 @@
 package survivalblock.tameable_axolotls.pathfinder;
 
 import net.minecraft.entity.ai.pathing.*;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import survivalblock.tameable_axolotls.mixin.AmphibiousSwimNavigationAccessor;
 import survivalblock.tameable_axolotls.mixin.EntityNavigationAccessor;
 
 public class AmphibiousSwimNavigationWrapper extends MobNavigation {
 
     public AmphibiousSwimNavigationWrapper(AmphibiousSwimNavigation delegate) {
-        super(((EntityNavigationAccessor) delegate).getEntity(), ((EntityNavigationAccessor) delegate).getWorld());
+        super(((EntityNavigationAccessor) delegate).tameable_axolotls$getEntity(), ((EntityNavigationAccessor) delegate).tameable_axolotls$getWorld());
         this.delegate = delegate;
     }
 
@@ -26,22 +24,22 @@ public class AmphibiousSwimNavigationWrapper extends MobNavigation {
 
     @Override
     protected boolean isAtValidPosition() {
-        return ((AmphibiousSwimNavigationAccessor) delegate).tameableAxolotls$isAtValidPosition();
+        return ((AmphibiousSwimNavigationAccessor) delegate).tameable_axolotls$isAtValidPosition();
     }
 
     @Override
     protected Vec3d getPos() {
-        return ((AmphibiousSwimNavigationAccessor) delegate).tameableAxolotls$getPos();
+        return ((AmphibiousSwimNavigationAccessor) delegate).tameable_axolotls$getPos();
     }
 
     @Override
     protected double adjustTargetY(Vec3d pos) {
-        return ((AmphibiousSwimNavigationAccessor) delegate).tameableAxolotls$adjustTargetY(pos);
+        return ((AmphibiousSwimNavigationAccessor) delegate).tameable_axolotls$adjustTargetY(pos);
     }
 
     @Override
     protected boolean canPathDirectlyThrough(Vec3d origin, Vec3d target) {
-        return ((AmphibiousSwimNavigationAccessor) delegate).tameableAxolotls$canPathDirectlyThrough(origin, target);
+        return ((AmphibiousSwimNavigationAccessor) delegate).tameable_axolotls$canPathDirectlyThrough(origin, target);
     }
 
     @Override

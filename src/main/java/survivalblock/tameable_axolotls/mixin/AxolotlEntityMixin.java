@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.tameable_axolotls.pathfinder.AmphibiousFollowOwnerGoal;
 import survivalblock.tameable_axolotls.pathfinder.AmphibiousSwimNavigationWrapper;
 
-
+@SuppressWarnings({"ConstantValue", "UnreachableCode"})
 @Mixin(value = AxolotlEntity.class, priority = 1500)
 public abstract class AxolotlEntityMixin extends AnimalEntity {
     @Shadow protected abstract void eat(PlayerEntity player, Hand hand, ItemStack stack);
