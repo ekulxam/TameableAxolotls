@@ -16,15 +16,15 @@ public class AmphibiousFollowOwnerGoal extends FollowOwnerGoal {
 
     @Override
     protected boolean canTeleportTo(BlockPos pos) {
-        PathNodeType pathNodeType = LandPathNodeMaker.getLandNodeType(((FollowOwnerGoalAccessor) this).getWorld(), pos.mutableCopy());
+        PathNodeType pathNodeType = LandPathNodeMaker.getLandNodeType(((FollowOwnerGoalAccessor) this).tameable_axolotls$getWorld(), pos.mutableCopy());
         if (pathNodeType != PathNodeType.WATER) {
             return false;
         }
-        BlockState blockState = ((FollowOwnerGoalAccessor) this).getWorld().getBlockState(pos.down());
-        if (!((FollowOwnerGoalAccessor) this).getLeavesAllowed() && blockState.getBlock() instanceof LeavesBlock) {
+        BlockState blockState = ((FollowOwnerGoalAccessor) this).tameable_axolotls$getWorld().getBlockState(pos.down());
+        if (!((FollowOwnerGoalAccessor) this).tameable_axolotls$getLeavesAllowed() && blockState.getBlock() instanceof LeavesBlock) {
             return false;
         }
-        BlockPos blockPos = pos.subtract(((FollowOwnerGoalAccessor) this).getTameable().getBlockPos());
-        return ((FollowOwnerGoalAccessor) this).getWorld().isSpaceEmpty(((FollowOwnerGoalAccessor) this).getTameable(), ((FollowOwnerGoalAccessor) this).getTameable().getBoundingBox().offset(blockPos));
+        BlockPos blockPos = pos.subtract(((FollowOwnerGoalAccessor) this).tameable_axolotls$getTameable().getBlockPos());
+        return ((FollowOwnerGoalAccessor) this).tameable_axolotls$getWorld().isSpaceEmpty(((FollowOwnerGoalAccessor) this).tameable_axolotls$getTameable(), ((FollowOwnerGoalAccessor) this).tameable_axolotls$getTameable().getBoundingBox().offset(blockPos));
     }
 }
